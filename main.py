@@ -11,17 +11,17 @@ def main():
         irradiance = float(input("Enter irradiance (W/m^2): "))
         temperature = float(input("Enter temperature (C): "))
     except ValueError:
-        pass
+        sys.exit("Enter valid numbers!")
     calculated_data = calculate_parameters(
         model_data, reference_data, irradiance = irradiance, temperature = temperature
-    )
+        )
     simulation_template(
         model_data,
         reference_data,
         calculated_data,
         irradiance=irradiance,
         temperature=temperature,
-    )
+        )
     while True:
         menu()
         try:
@@ -32,7 +32,7 @@ def main():
 
         match response_1:
             case 1:
-                curve_template(model_data, calculated_data, irradiance=irradiance, temperature=temperature)
+                curve_template(model_data, reference_data, calculated_data, irradiance=irradiance, temperature=temperature)
             case 2:
                 irradiance_analysis_template(model_data, reference_data)
             case 3:

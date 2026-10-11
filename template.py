@@ -1,4 +1,4 @@
-from plotter import plot_iv_curve_condition, plot_iv_pv_curve_for_irradiance_analysis, plot_iv_pv_curve_for_temperature_analysis, plot_iv_pv_curve_for_combined_analysis
+from plotter import plot_simulation_curve, plot_iv_pv_curve_for_irradiance_analysis, plot_iv_pv_curve_for_temperature_analysis, plot_iv_pv_curve_for_combined_analysis
 from pv_model import calculate_parameters
 
 
@@ -100,7 +100,7 @@ def temperature_analysis_template(model_data, reference_data, fixed_irradiance=1
     plot_iv_pv_curve_for_temperature_analysis(temp_values, results, fixed_irradiance)
     print()
 
-def curve_template(model_data, calculated_data, irradiance=1000, temperature=25):
+def curve_template(model_data, reference_data, calculated_data, irradiance=1000, temperature=25):
     """Display the curve analysis screen for I-V and P-V simulation results."""
 
     isc = calculated_data["short_circuit_current"]
@@ -136,9 +136,12 @@ def curve_template(model_data, calculated_data, irradiance=1000, temperature=25)
     print("-" * 60)
     print()
     print("Opening I-V and P-V plots...")
-    plot_iv_curve_condition(model_data, calculated_data)
+    plot_simulation_curve(model_data, reference_data, calculated_data)
     print()
-    input("[Press ENTER to return to menu]")
+    try:
+        input("[Press ENTER to return to menu]")
+    except EOFError:
+        pass
     menu()
 
 def combined_analysis_template(model_data, reference_data):

@@ -3,20 +3,19 @@
 from math import exp, log
 
 from parameters import BOLTZMANN_CONSTANT, ELECTRON_CHARGE
-from config import configure
-from parameters import extract_reference_parameters
+
 
 def calculate_iv_characteristics(
 		irradiance, temperature, model_data, reference_data, calculated_parameters
-):
+		):
 	"""Calculate Isc, Voc, Vmp, Imp, and Pmax for the requested conditions.
 
 	The catalogue has no Vmp or Imp temperature coefficients, so the Voc and
 	Isc coefficients are used as proxies for those respective coefficients.
 	"""
-	if irradiance <= 0:
+	if irradiance < 0:
 		raise ValueError("Irradiance must be greater than zero")
-	if reference_data["irradiance_(G)"] <= 0:
+	if reference_data["irradiance_(G)"] < 0:
 		raise ValueError("Reference irradiance must be greater than zero")
 
 	temperature_delta = temperature - model_data["temperature"]
@@ -33,19 +32,19 @@ def calculate_iv_characteristics(
 		reference_data["diode_ideality_factor_(n)"]
 		* model_data["cells"]
 		* thermal_voltage
-	)
+	    )
 	open_circuit_voltage = diode_ideality_voltage * log(
 		light_generated_current / saturation_current + 1
-	)
+	    )
 
 	max_power_voltage_ref = model_data["max_power_voltage"]
 	max_power_current_ref = model_data["max_power_current"]
 	max_power_voltage = max_power_voltage_ref * (
 		1 + model_data["temp_coeff_voc"] * temperature_delta
-	) + max_power_voltage_ref * log(irradiance_ratio)
+	    ) + max_power_voltage_ref * log(irradiance_ratio)
 	max_power_current = max_power_current_ref * irradiance_ratio * (
 		1 + model_data["temp_coeff_isc"] * temperature_delta
-	)
+	    )
 	max_power = max_power_voltage * max_power_current
 
 	return {
@@ -54,7 +53,7 @@ def calculate_iv_characteristics(
 		"max_power_voltage": max_power_voltage,
 		"max_power_current": max_power_current,
 		"max_power": max_power,
-	}
+	    }
 
 
 def calculate_parameters(model_data, reference_data, irradiance=1000, temperature=25):

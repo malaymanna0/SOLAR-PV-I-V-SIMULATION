@@ -134,6 +134,91 @@ def plot_iv_curve_condition(model_data, calculated_data):
     plt.show()
 
 
+def plot_simulation_curve(model_data, reference_data, calculated_data):
+    figure, current_axis = plt.subplots(figsize=(10, 6))
+    power_axis = current_axis.twinx()
+
+    def plot_curve(label_prefix, curve_type):
+        if curve_type == "reference":
+            voltage_limit = model_data["open_circuit_voltage"]
+            photocurrent = reference_data["light_generated_current_(I_l)"]
+            saturation_current = reference_data["diode_reverse_saturation_current_(I_0)"]
+            series_resistance = reference_data["series_resistance_(Rs)"]
+            shunt_resistance = reference_data["shunt_resistance_(Rsh)"]
+            ideality_voltage = (
+                reference_data["diode_ideality_factor_(n)"]
+                * model_data["cells"]
+                * reference_data["thermal_voltage_(Vth)"]
+            )
+        else:
+            voltage_limit = calculated_data["open_circuit_voltage"]
+            photocurrent = calculated_data["light_induced_photocurrent"]
+            saturation_current = calculated_data["diode_reverse_saturation_current"]
+            series_resistance = calculated_data["series_resistance"]
+            shunt_resistance = calculated_data["shunt_resistance"]
+            ideality_voltage = calculated_data["diode_ideality_voltage"]
+
+        voltages = np.linspace(0, voltage_limit, 100)
+        currents = []
+
+        for voltage in voltages:
+            equation = lambda current: pv_equation(
+                current,
+                voltage,
+                photocurrent,
+                saturation_current,
+                series_resistance,
+                shunt_resistance,
+                ideality_voltage,
+            )
+            try:
+                current = brentq(equation, 0, photocurrent)
+            except ValueError:
+                current = np.nan
+            currents.append(current)
+
+        currents = np.asarray(currents)
+        power = voltages * currents
+
+        current_axis.plot(
+            voltages,
+            currents,
+            linewidth=2,
+            label=f"{label_prefix} - I-V",
+        )
+        power_axis.plot(
+            voltages,
+            power,
+            linestyle="--",
+            linewidth=2,
+            label=f"{label_prefix} - P-V",
+        )
+
+    plot_curve("Reference", reference_data, "reference")
+    plot_curve("Condition", calculated_data, "condition")
+
+    current_axis.set_xlabel("Voltage (V)")
+    current_axis.set_ylabel("Current (A)")
+    power_axis.set_ylabel("Power (W)")
+    current_axis.set_title(
+        "Simulation Reference vs Condition I-V and P-V Curve"
+    )
+    current_axis.grid(True, alpha=0.3)
+
+    current_handles, current_labels = current_axis.get_legend_handles_labels()
+    power_handles, power_labels = power_axis.get_legend_handles_labels()
+    current_axis.legend(
+        current_handles + power_handles,
+        current_labels + power_labels,
+        loc="best",
+        fontsize=8,
+    )
+
+    figure.tight_layout()
+    figure.savefig("simulation_iv_pv_curve.png", dpi=300)
+    plt.show()
+
+
 def plot_iv_pv_curve_for_irradiance_analysis(irrad_values, results, fixed_temperature=25):
     figure, current_axis = plt.subplots(figsize=(10, 6))
     power_axis = current_axis.twinx()
