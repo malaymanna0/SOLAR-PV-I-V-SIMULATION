@@ -194,8 +194,8 @@ def plot_simulation_curve(model_data, reference_data, calculated_data):
             label=f"{label_prefix} - P-V",
         )
 
-    plot_curve("Reference", reference_data, "reference")
-    plot_curve("Condition", calculated_data, "condition")
+    plot_curve("Reference", "reference")
+    plot_curve("Condition", "condition")
 
     current_axis.set_xlabel("Voltage (V)")
     current_axis.set_ylabel("Current (A)")

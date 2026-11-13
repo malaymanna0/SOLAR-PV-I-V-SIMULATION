@@ -3,6 +3,7 @@
 import csv
 from contextlib import contextmanager
 from pathlib import Path
+import sys
 
 
 CSV_FILE = Path(__file__).with_name("pv_models.csv")
@@ -88,7 +89,10 @@ def configure(model_name=None, csv_file=CSV_FILE):
         for name in models:
             print(f"- {name}")
         model_name = input("Enter model name: ")
-
+        if model_name not in models:
+            sys.exit('Model can\'t find... Try Again Later !')
+    
+    
     data = load_model(model_name, csv_file)
     globals().update(data)
 
