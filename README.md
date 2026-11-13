@@ -81,6 +81,8 @@ This part of the project solves the single-diode equation and uses the results t
 
 # 3. Complete Process Theory of Photovoltaic Systems
 
+![I-V Curve](images/Photovoltaic_Systems_Theory_Overview.png)
+
 ## Step 1: Semiconductor Physics &amp; The Photovoltaic Effect
 
 A solar cell is a specialized semiconductor device constructed by joining two thin silicon layers: a thin **N-type layer** (top emitter with excess free electrons) and a thicker **P-type layer** (bottom base with excess holes), creating a **P-N junction** across their boundary.
@@ -147,7 +149,7 @@ Solar panel output varies dynamically in outdoor environments due to changing so
 ---
 
 
-# 5. System Architecture
+# 4. System Architecture
 
 The project follows a modular architecture, dividing user interaction, parameter extraction, mathematical computation, visualization, and output generation into separate components.
 
@@ -162,7 +164,7 @@ The project follows a modular architecture, dividing user interaction, parameter
 - **Output Layer:** The `template.py` module manages the presentation of calculated parameters, simulation results, interactive menus, and analysis options, allowing users to interpret the electrical performance of the selected PV module.
 ---
 
-# 6. Architecture Diagram
+# 5. Architecture Diagram
 
 ### A. Project Directory Structure
 Your project can be represented as follows:
@@ -259,7 +261,7 @@ L3["contextlib (Library)<br/>contextmanager (Module)"]
 
 
 
-# 7. Project Workflow / Flowchart
+# 6. Project Workflow / Flowchart
 
 The following flowchart represents the complete execution sequence, including PV module selection, reference parameter extraction, simulation, result presentation, and different analysis modes.
 
@@ -295,7 +297,7 @@ flowchart TD
     T --> H
 ```
 
-# 8. Technology Stack
+# 7. Technology Stack
 
 The project uses Python and scientific computing libraries to calculate photovoltaic (PV) parameters, simulate module performance, and generate I–V and P–V characteristic curves.
 
@@ -312,7 +314,7 @@ The project uses Python and scientific computing libraries to calculate photovol
 
 **Note:** NumPy supports numerical data handling, while Matplotlib provides visualization. SciPy supplies mathematical functions and numerical solvers required by the PV model. The project implements the Single-Diode Model and De Soto model through its own Python modules.
 
-# 9. Project Folder Structure
+# 8. Project Folder Structure
 ```
 solar-iv-pv-simulator/
 │
@@ -328,7 +330,7 @@ solar-iv-pv-simulator/
 └── data/                 # To be added from project documents.
 ```
 
-# 10. Installation and Setup
+# 9. Installation and Setup
 
 Follow these steps to install and run the Solar PV Simulator on your computer.
 
@@ -392,7 +394,7 @@ python main.py
 
 ---
 
-# 11. How to Run the Project
+# 10. How to Run the Project
 
 Follow these steps to execute the Solar PV Simulator:
 
@@ -439,11 +441,11 @@ Follow these steps to execute the Solar PV Simulator:
 
 ---
 
-# 12. Code Explanation
+# 11. Code Explanation
 
 The project follows a modular programming structure, where each Python file performs a specific task in the PV simulation process.
 
-### 12.1 `config.py`
+### 11.1 `config.py`
 
 **Purpose:** Handles PV module selection and loads reference specifications from the `pv_models.csv` catalogue.
 
@@ -456,7 +458,7 @@ The project follows a modular programming structure, where each Python file perf
 - `CSV_FILE` – Defines the path to the PV module catalogue.
 - `REQUIRED_COLUMNS` – Specifies the required CSV data fields.
 
-### 12.2 `parameters.py`
+### 11.2 `parameters.py`
 
 **Purpose:** Extracts the reference parameters of the Single-Diode Model using the Batzelis datasheet-based parameter extraction method.
 
@@ -478,7 +480,7 @@ The project follows a modular programming structure, where each Python file perf
 - Lambert W function.
 - Batzelis parameter extraction method.
 
-### 12.3 `pv_model.py`
+### 11.3 `pv_model.py`
 
 **Purpose:** Acts as the computational engine of the simulation. It calculates the updated Single-Diode Model parameters under different irradiance and temperature conditions using the De Soto model.
 
@@ -501,7 +503,7 @@ The project follows a modular programming structure, where each Python file perf
 - Irradiance-dependent photocurrent.
 - Thermal voltage and diode voltage calculations.
 
-### 12.4 `plotter.py`
+### 11.4 `plotter.py`
 
 **Purpose:** Handles numerical current calculations and graphical visualization of the PV module's electrical characteristics.
 
@@ -520,7 +522,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 
 **Visualization Library:** Matplotlib.
 
-### 12.5 `template.py`
+### 11.5 `template.py`
 
 **Purpose:** Manages the command-line interface, displays simulation reports, and connects the analysis options with the plotting functions.
 
@@ -532,7 +534,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 - `combined_analysis_template()` – Performs combined irradiance and temperature analysis.
 - `menu()` – Displays the main application menu.
 
-### 12.6 `main.py`
+### 11.6 `main.py`
 
 **Purpose:** Acts as the main entry point and controls the overall execution flow of the application.
 
@@ -552,7 +554,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 
 ---
 
-# 13. Output and Graph Explanation
+# 12. Output and Graph Explanation
 
 ## 1. Key Point Markers 
 
@@ -574,7 +576,9 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 * **Cell Efficiency ($\eta_{cell}$):** The percentage of incident solar power ($P_{in} = G \cdot A$) converted into peak electrical power ($P_{mp}$): $$\eta_{cell} = \frac{P_{mp}}{G \cdot A_{cell}} = \frac{V_{mp} \cdot I_{mp}}{G \cdot A_{cell}}$$ 
 * **Module vs. Cell Efficiency ($\eta_{module} < \eta_{cell}$):** Complete panel (module) efficiency is strictly lower than individual cell efficiency because panel dimensions include non-active border framing, inter-cell wiring gaps, and protective encapsulation.
 
-# 14. Advantages
+![I-V Curve](images/Photovoltaic_I-V_and_P-V_Curve_Analysis.png)
+
+# 13. Advantages
 
 - Simulates PV module performance without requiring physical hardware.
 - Generates I–V and P–V characteristic curves.
@@ -584,7 +588,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 - Modular and reusable Python code structure.
 - Provides a cost-effective tool for learning and PV performance analysis.
 
-# 15. Limitations
+# 14. Limitations
 
 - Uses a mathematical model rather than real-time experimental measurements.
 - Accuracy depends on the PV module datasheet specifications and model assumptions.
@@ -593,7 +597,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 - Does not implement a real-time MPPT control algorithm.
 - Currently provides a command-line interface rather than a graphical user interface.
 
-## 16. Future Scope
+## 15. Future Scope
 
 - Develop a graphical user interface (GUI) for easier interaction.
 - Add real-time PV data monitoring using sensors.
@@ -602,7 +606,7 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 - Support larger PV arrays and different PV technologies.
 - Validate simulation results using experimental data.
 
-## 17. Applications
+## 16. Applications
 
 - Educational study of photovoltaic module characteristics.
 - Analysis of I–V and P–V curves under different operating conditions.
@@ -611,13 +615,13 @@ The `brentq()` root-finding method from `scipy.optimize` is used to solve the im
 - Preliminary PV module performance analysis.
 - Learning and research in solar photovoltaic systems.
 
-## 18. Conclusion
+## 17. Conclusion
 
 The Solar PV I–V Simulator provides a Python-based approach to studying photovoltaic module performance using the Single-Diode Model and De Soto model. It calculates important electrical parameters and generates I–V and P–V curves under different irradiance and temperature conditions.
 
 The project demonstrates how environmental conditions influence PV module characteristics and provides a useful foundation for further development in solar energy modelling and analysis.
 
-## 19. References
+## 18. References
 
 1. **NPTEL – Design of Photovoltaic Systems:** Lecture series used to understand photovoltaic system fundamentals and modelling concepts.  
    https://youtube.com/playlist?list=PLRQCRCvsI8vfilPpiIbsLz3NB-gTMLG8f
