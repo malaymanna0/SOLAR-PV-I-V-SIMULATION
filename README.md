@@ -2,16 +2,16 @@
 
 # 1. Project Title and Overview
 
-# **Project Name:** Solar PV I-V Simulator
+## **Project Name:** Solar PV Simulator
 
 ## *Project Overview*
 
-The **Solar-PV-Simulator** is a Python-based software tool designed to model, simulate, and analyze the electrical performance of photovoltaic (PV) cells and modules. The project bridges physical semiconductor theory with numerical computation and visualization, enabling users to evaluate Current-Voltage ($I\text{-}V$) and Power-Voltage ($P\text{-}V$) characteristics under varying environmental and operating conditions.
+**Solar PV Simulator** is a Python-based application that simulates the electrical characteristics of photovoltaic (PV) modules using the Single-Diode Model. It calculates PV parameters and generates I–V and P–V curves to analyze how changes in solar irradiance and temperature affect module performance.
 
 ### **Key Functional &amp; Architectural Highlights** 
 1\. **Theoretical Modeling Foundation** 
 * Built upon the **Single Diode Equivalent Circuit Model**, incorporating parameters such as light-generated current ($I_L$), diode reverse saturation current ($I_0$), series resistance ($R_s$), shunt resistance ($R_{sh}$), and diode ideality factor ($n$). 
-* Integrates standard PV performance formulations, including the **De Soto Five-Parameter Model** and **PVsyst Module Model** contributed via the PV Performance Modeling Collaborative (PVPMC by NIST and Sandia National Laboratories).
+* Integrates standard PV performance formulations, including the **De Soto Five-Parameter Model**  contributed via the PV Performance Modeling Collaborative (PVPMC by NIST and Sandia National Laboratories).
 * Models the complete non-linear governing single-diode equation: $$I = I_L - I_0 \left[ \exp\left( \frac{V + I R_s}{n N_s V_T} \right) - 1 \right] - \frac{V + I R_s}{R_{sh}}$$
 
 2\. **Modular Software Architecture**
@@ -34,7 +34,7 @@ The simulator is split into small files. Each file has one job.
 
 This part of the project solves the single-diode equation and uses the results to study how a PV module behaves.
 
-* **Solving the equation:** The single-diode equation is implicit, because the current I appears on both sides. The code finds I for each voltage point using **Brent's method** (`scipy.optimize.brentq`) in `plotter.py`. The **Lambert W function** (`scipy.special.lambertw`) is used in `parameters.py` to extract the reference parameters (I_L, I_0, R_s, R_sh, n) from the datasheet values.
+* **Solving the equation:** The single-diode equation is implicit, because the current I appears on both sides. The code finds current for each voltage point using **Brent's method** (`scipy.optimize.brentq`) in `plotter.py`. The **Lambert W function** (`scipy.special.lambertw`) is used in `parameters.py` to extract the reference parameters (I_L, I_0, R_s, R_sh, n) from the datasheet values.
 * **Performance results:** For any irradiance and temperature, the simulator reports Short-Circuit Current (I_sc), Open-Circuit Voltage (V_oc), Maximum Power Voltage (V_mp), Maximum Power Current (I_mp), Maximum Power (P_max), and Fill Factor (FF).
 * **Environmental effects:** The simulator studies how conditions change the output:
   * **Irradiance analysis:** several irradiance values (W/m²) at a fixed temperature of 25 °C.
@@ -200,4 +200,3 @@ Clone or download the project folder.Install Python on your machine.Install requ
 
 # 12. Code Explanation
 config.pyPurpose: Stores reference constants[cite: 9].Important Variables: q, K, Ns, Voc_ref, Isc_ref, Rs, Rsh, n, G_ref, default T_ref[cite: 9].PV_model.pyPurpose: Acts as the "Engine Brain" of the simulation[cite: 9].Main Logic / Functions: calculate_thermal_voltage(), calculate_photocurrent(), calculate_saturation_current(), calculate_current(), generate_iv_curve(), calculate_Power(), find_MPP()[cite: 9].Equations Used: Implements implicit methods like Newton, Brent, Chandrupatla, Lambert W, or Bishop-type methods to solve for $I$[cite: 9].Plotter.pyPurpose: Handles all graph generation[cite: 9].Main Logic / Functions: Plot_IV_curve(), Plot_PV_curve(), Plot_comparison()[cite: 9].main.pyPurpose: Controls the application flow[cite: 9].Main Logic: get_input $\rightarrow$ calculate parameters $\rightarrow$ generate curve $\rightarrow$ calculate MPP $\rightarrow$ Plot results $\rightarrow$ display results[cite: 9].
->>>>>>> 7d1db8b (README.md)
