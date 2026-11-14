@@ -171,6 +171,12 @@ My projec represented as follows:
 ```
 SOLAR-PV-I-V-SIMULATION/
 │
+├── image/
+|   |
+|   ├── Photovoltaic_Systems_Theory_Overview.png
+|   |
+|   └── Photovoltaic_I-V_and_P-V_Curve_Analysis.png
+|
 ├── main.py              # Main execution and program control
 │
 ├── config.py            # PV module selection and configuration
