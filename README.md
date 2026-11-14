@@ -47,7 +47,7 @@ This part of the project solves the single-diode equation and uses the results t
 1. [Project Title and Overview](#1-project-title-and-overview)
 2. [Features](#2-features)
 3. [Complete Process Theory of Photovoltaic Systems](#3-complete-process-theory-of-photovoltaic-systems)
-4. [Architecture Diagram](#4-architecture-diagram)
+4. [System Architecture](#4-system-architecture)
 5. [Project Workflow / Flowchart](#5-project-workflow--flowchart)
 6. [Technology Stack](#6-technology-stack)
 7. [Project Folder Structure](#7-project-folder-structure)
@@ -167,7 +167,7 @@ The project follows a modular architecture, dividing user interaction, parameter
 # 5. Architecture Diagram
 
 ### A. Project Directory Structure
-Your project can be represented as follows:
+My projec represented as follows:
 ```
 SOLAR-PV-I-V-SIMULATION/
 │
